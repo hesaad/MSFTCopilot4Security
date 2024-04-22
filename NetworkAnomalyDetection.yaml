@@ -1,0 +1,42 @@
+Descriptor:
+  Name: Network (CEF) anomaly detection activity
+  DisplayName: "Sentinel KQL: Network (CEF) anomaly detection activity"
+  Description: Skills that look up network CEF CommonSecurityLog Sentinel data anomaly activity - events.
+
+SkillGroups:
+  - Format: KQL
+    Skills:
+      - Name: Detectnetworkcefanomalyeactivity
+        DisplayName: Detect Network (CEF) anomaly detection activity
+        Description: Fetches all Network (CEF) anomaly detection activity in Microsoft Sentinel CommonSecurityLog. How it works is first to find and list all of the anomalies in a time series. The series_decompose_anomalies() function takes a series of values as input and extracts anomalies. Then, looking at the query results, you can see that the function calculates an expected daily usage for each table, compares actual daily usage to expected usage, assigns an anomaly score to each data point indicating the extent of the deviation of actual usage from expected usage, and identifies positive (1) and negative (-1) anomalies in each table.
+        ExamplePrompt:
+          - 'Analyze network CEF data in Sentinel if there is anomaly'
+          - 'Anomaly data detection if any in Palo Alto logs'
+          - 'Scan my network and firewall data if there is any data anomaly activity'
+        Inputs:
+          - Name: StartTime
+            Description: Set startTime Number of Days for the localback Network (CEF) anomaly detection activity in Microsoft Sentinel
+            Required: true
+            DefaultValue: 21d
+          - Name: EndTime
+            Description: Set endTime Number of Days for the localback Network (CEF) anomaly detection activity in Microsoft Sentinel
+            Required: true
+            DefaultValue: 0d
+        Settings:
+          Target: Sentinel
+          TenantId: 536279f6-15cc-45f2-be2d-61e352b51eef
+          SubscriptionId: ab48f397-fc82-4634-aa52-62dd91b3ebaa
+          ResourceGroupName: woodgrove-rg
+          WorkspaceName: Woodgrove-LogAnalyiticsWorkspace
+          Template: |-
+            let starttime=21d;
+            let endtime = 0d;
+            let timeframe = 1d;
+            CommonSecurityLog 
+            | where TimeGenerated between (startofday(ago(21d))..startofday(ago(0d)))
+            | make-series ActualUsage=count() default = 0 on TimeGenerated from startofday(ago(21d)) to startofday(ago(0d)) step 1d by DeviceVendor
+            | extend(Anomalies, AnomalyScore, ExpectedUsage) = series_decompose_anomalies(ActualUsage,1.5,-1,'avg',1)
+            | mv-expand ActualUsage to typeof(double), TimeGenerated to typeof(datetime), Anomalies to typeof(double),AnomalyScore to typeof(double), ExpectedUsage to typeof(long)
+            | where Anomalies != 0
+            | project TimeGenerated, ActualUsage, ExpectedUsage, AnomalyScore, Anomalies, DeviceVendor
+            | sort by abs(AnomalyScore) desc
