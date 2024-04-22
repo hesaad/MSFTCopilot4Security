@@ -24,10 +24,10 @@ SkillGroups:
             DefaultValue: 0d
         Settings:
           Target: Sentinel
-          TenantId: 536279f6-15cc-45f2-be2d-61e352b51eef
-          SubscriptionId: ab48f397-fc82-4634-aa52-62dd91b3ebaa
-          ResourceGroupName: woodgrove-rg
-          WorkspaceName: Woodgrove-LogAnalyiticsWorkspace
+          TenantId: 7XXX6-xxx-xx5f2-XX2d-XXX
+          SubscriptionId: XXX-XXX-4XX34-XXX2-XXX
+          ResourceGroupName: Test-rg
+          WorkspaceName: Test-LogAnalyiticsWorkspace
           Template: |-
             let starttime=21d;
             let endtime = 0d;
