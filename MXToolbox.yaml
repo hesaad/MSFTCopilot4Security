@@ -1,0 +1,47 @@
+openapi: 3.0.0
+
+info:
+  title: "MxToolbox SuperTool"
+  description: "MxToolbox SuperTool API"
+  version: "v1"
+
+servers:
+  - url: "https://api.mxtoolbox.com/api/v1/"
+
+paths:
+  /Lookup/{Command}/?argument={argument}:
+    get:
+        operationId: "MxToolBoxLookupParameters"
+        summary: "Get MxToolBox Lookup Command - Argument - Port Parameters"
+        parameters:
+          - in: path
+            name: Command
+            schema:
+              type: string
+            required: true
+            default: tcp
+            description: Command value for example tcp
+          - in: path
+            name: argument
+            schema:
+              type: string
+            required: true
+            description: Argument value for example contoso.com
+          - in: path
+            name: Port
+            schema:
+              type: integer
+            required: false
+            example: 80
+            description: Port value for example 80
+        responses:
+          "200":
+            description: OK
+components:
+  securitySchemes:
+    ApiKeyAuth:
+      type: apiKey
+      in: header
+      name: Authorization
+security:
+  - ApiKeyAuth: []
