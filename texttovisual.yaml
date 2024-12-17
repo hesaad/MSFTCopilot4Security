@@ -1,0 +1,28 @@
+openapi: 3.0.0
+info:
+    title: "text-to-visual-plugin"
+    description: "The skill in this plugin will convert text to visual"
+    version: 1.0.0
+
+# This should point to the Azure Function URL
+servers:
+    - url: "https://seccopilottexttovisualfn.azurewebsites.net/api/"
+
+paths:
+    /ConvertTextToChart:
+        get:
+            operationId: ConvertTextToChart
+            description: Converts text data to a chart/graph using REST API and Azure Function
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                type: object
+                properties:
+                  text:
+                    type: string
+                  status:
+                    type: string
+                  chartUrl:
+                    type: string
