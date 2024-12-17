@@ -10,19 +10,39 @@ servers:
 
 paths:
     /ConvertTextToChart:
-        get:
-            operationId: ConvertTextToChart
-            description: Converts text data to a chart/graph using REST API and Azure Function
-            responses:
-                "200":
-                    description: OK
-                    content:
-                        application/json:
+           post:
+      summary: Generate a visual from text input
+      operationId: ConvertTextToChart
+      tags:
+        - text-to-visual
+      requestBody:
+        description: Input data for generating the visual
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                inputText:
+                  type: string
+                  description: The text input to convert into a visual.
+                style:
+                  type: string
+                  description: Optional style for the generated visual.
+              required:
+                - inputText
+      responses:
+        '200':
+          description: Successful visual generation
+          content:
+            application/json:
+              schema:
                 type: object
                 properties:
-                  text:
+                  imageUrl:
                     type: string
-                  status:
-                    type: string
-                  chartUrl:
-                    type: string
+                    description: URL of the generated visual.
+        '400':
+          description: Bad request, input validation failed
+        '500':
+          description: Server error
