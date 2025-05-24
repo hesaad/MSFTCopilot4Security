@@ -10,15 +10,16 @@ paths:
     post:
       operationId: SendEmail
       summary: Send e-mail via Logic App
-      requestBody:
-        required: true
-        content:
-          application/json:
+      parameters:
+          - in: path
+            name: Command
             schema:
-              type: object
-              properties:
-                message:
-                  type: string
+              type: string
+            required: true
+            default: welcome
+            description: email message value
       responses:
         "202":
+          description: Accepted - Logic App triggered
+        "200":
           description: Accepted - Logic App triggered
