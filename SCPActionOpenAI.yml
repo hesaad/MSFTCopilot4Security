@@ -1,12 +1,12 @@
 openapi: 3.0.0
 info:
   title: LogicApp-SendEmail
-  version: "1.0.0"
+  version: "v1"
   description: Trigger Logic App to send an e-mail with the supplied message.
 servers:
-  - url: "https://prod-71.eastus.logic.azure.com:443/workflows/8f4c192bcb6045b1a0a3d497abf72e66/triggers/manual/paths/invoke?api-version=2016-10-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=XlcSYB1Dy6i1bzA66ukEwXSKd2Yh83_uXPWN3fb7wK8"
+  - url: "https://prod-71.eastus.logic.azure.com:443/workflows/8f4c192bcb6045b1a0a3d497abf72e66/triggers/manual/paths"
 paths:
-  /:
+  /invoke?api-version=2016-10-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=XlcSYB1Dy6i1bzA66ukEwXSKd2Yh83_uXPWN3fb7wK8:
     post:
       operationId: SendEmail
       summary: Send e-mail via Logic App
