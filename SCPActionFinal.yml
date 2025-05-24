@@ -4,8 +4,7 @@ Descriptor:
   Description: >-
     Custom plugin that sends an e-mail by calling an Azure Logic App.
     Provide the e-mail body text as 'message'.
-  SupportedAuthTypes:
-    - None
+    
 SkillGroups:
   - Format: API
     Settings:
