@@ -1,11 +1,16 @@
 openapi: 3.0.1
 info:
-  title: Trigger Azure Logic App
+  title: Send Email via Logic App
+  description: API to send an email using an Azure Logic App HTTP trigger.
   version: 1.0.0
+servers:
+  - url: https://prod-71.eastus.logic.azure.com:443/workflows/8f4c192bcb6045b1a0a3d497abf72e66/triggers/manual/paths/invoke?api-version=2016-10-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=XlcSYB1Dy6i1bzA66ukEwXSKd2Yh83_uXPWN3fb7wK8
+    description: Azure Logic App HTTP trigger endpoint
 paths:
-  /trigger:
+  /invoke:
     post:
-      summary: Trigger the Azure Logic App
+      operationId: sendEmail
+      summary: Sends an email via Logic App
       requestBody:
         required: true
         content:
@@ -13,19 +18,23 @@ paths:
             schema:
               type: object
               properties:
+                recipient:
+                  type: string
+                  description: Email address of the recipient
+                subject:
+                  type: string
+                  description: Subject of the email
                 message:
                   type: string
-                  description: Message to send to Logic App
+                  description: Body of the email
+              required:
+                - recipient
+                - subject
+                - message
       responses:
-        '200':
-          description: Logic App triggered successfully
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  status:
-                    type: string
-servers:
-  - url: https://prod-71.eastus.logic.azure.com:443/workflows/8f4c192bcb6045b1a0a3d497abf72e66/triggers/manual/paths/invoke
-    description: Azure Logic App endpoint
+        '202':
+          description: Email sent successfully
+        '400':
+          description: Bad request
+        '500':
+          description: Server error
