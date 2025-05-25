@@ -1,0 +1,9 @@
+Descriptor:
+  Name: SendEmailPlugin
+  DisplayName: Send Email via Logic App
+  Description: Sends an email notification using an Azure Logic App.
+  DescriptionForModel: Sends an email notification with a specified recipient, subject, and message using an Azure Logic App HTTP trigger.
+SkillGroups:
+  - Format: API
+    Settings:
+      OpenApiSpecUrl: https://raw.githubusercontent.com/hesaad/MSFTCopilot4Security/refs/heads/main/SCPActionOpenAIOK.yml
