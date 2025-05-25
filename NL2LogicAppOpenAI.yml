@@ -1,0 +1,49 @@
+openapi: 3.0.1
+info:
+  title: Natural Language via Security Copilot to Logic App
+  description: Natural Language via Security Copilot to Logic App for taking action or executing tasks
+  version: 1.0.0
+servers:
+  - url: https://prod-14.northcentralus.logic.azure.com:443/workflows/82232d66bf484bcfa8273f3c32f98d57/triggers/manual/paths/
+    description: Azure Logic App HTTP trigger endpoint
+paths:
+  /invoke?api-version=2016-10-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=DxD0_lFIz737Y4bhMmXaBBLG_sbITvS9sOQaP0aWVFA:
+    post:
+      operationId: NL2LogicApp
+      summary: Trigger Logic app playbook via Security Copilot prompt NL2LogicApp
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                recipient:
+                  type: string
+                  description: Email address of the recipient
+                subject:
+                  type: string
+                  description: Subject of the email
+                message:
+                  type: string
+                  description: Body of the email
+                SoftwareFileHash:
+                  type: string
+                  description: Software or File Hash Sha1 value to remove - quarantine via defender API
+                SoftwareFileHashComment:
+                  type: string
+                  description: Software or File Hash Sha1 comment
+                EnforceSoftwareUpdate:
+                  type: string
+                  description: Software ID value or name
+              required:
+                - recipient
+                - subject
+                - message
+      responses:
+        '202':
+          description: Actions have been executed and Email sent successfully
+        '400':
+          description: Bad request
+        '500':
+          description: Server error
