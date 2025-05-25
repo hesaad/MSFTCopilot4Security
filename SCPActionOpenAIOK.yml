@@ -4,10 +4,10 @@ info:
   description: API to send an email using an Azure Logic App HTTP trigger.
   version: 1.0.0
 servers:
-  - url: https://prod-19.northcentralus.logic.azure.com:443/workflows/1f47ee8fd7ef4f7e8c308f2107dd96a7/triggers/manual/paths/invoke?api-version=2016-10-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=sEv0wd1-3lGBIMvtcvPmmGiQctVcG_lksvnLV8rD_ho
+  - url: https://prod-19.northcentralus.logic.azure.com:443/workflows/1f47ee8fd7ef4f7e8c308f2107dd96a7/triggers/manual/paths/
     description: Azure Logic App HTTP trigger endpoint
 paths:
-  /invoke:
+  /invoke?api-version=2016-10-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=sEv0wd1-3lGBIMvtcvPmmGiQctVcG_lksvnLV8rD_ho:
     post:
       operationId: sendEmail
       summary: Sends an email via Logic App
