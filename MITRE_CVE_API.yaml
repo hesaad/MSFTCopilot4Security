@@ -1,0 +1,22 @@
+openapi: 3.0.1
+info:
+    title: MITRE CVE Database
+    description: MITRE CVE Database to query for vulnerabilities.
+    version: 1.0.0
+servers:
+    - url: https://cveawg.mitre.org/
+paths:
+    /api/cve/{cveid}:
+        get:
+            operationId: GetMitreVuln
+            summary: Get a specific CVE vulnerability by its ID
+            parameters:
+                - in: path
+                  name: cveid
+                  schema:
+                    type: string
+                  required: true
+                  description: The CVE ID to lookup
+            responses:
+                "200":
+                    description: OK
