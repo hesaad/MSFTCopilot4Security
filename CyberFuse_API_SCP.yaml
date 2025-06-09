@@ -19,8 +19,19 @@ paths:
                   schema:
                       type: string
                   required: true
-                  description: The Prompt content
-
+                  description: "The Prompt content"
+                - in: query
+                  name: "type"
+                  schema:
+                      type: string
+                  default: human
+                  description: "Please do not change, the value should be human"
+                 - in: query
+                  name: "user_id"
+                  schema:
+                      type: string
+                  default: 221098
+                  description: "Please do not change, the value should be 221098"
             responses:
                 "200":
                     description: OK
