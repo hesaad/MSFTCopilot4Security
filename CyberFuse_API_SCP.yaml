@@ -26,7 +26,7 @@ paths:
                       type: string
                   default: human
                   description: "Please do not change, the value should be human"
-                 - in: query
+                - in: query
                   name: "user_id"
                   schema:
                       type: string
