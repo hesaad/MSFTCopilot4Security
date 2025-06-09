@@ -1,19 +1,19 @@
 openapi: 3.0.0
 
 info:
-    title: CyberFuse
-    description: CyberFuse AI SecLM Skillset to prompt and provide insights and context analysis across the CyberFuse connected data sources.
-    version: 1.0.0
+  title: CyberFuse
+  description: CyberFuse AI SecLM Skillset to prompt and provide insights and context analysis across the CyberFuse connected data sources.
+  version: 1.0.0
 
 servers:
-    - url: http://20.55.88.26:8001/
+  - url: http://20.55.88.26:8001/
 
 paths:
-    /chat/stream:
-        post:
-            operationId: CyberFuseAIPrompt
-            summary: Submit a prompt
-     requestBody:
+  /chat/stream:
+    post:
+      operationId: CyberFuseAIPrompt
+      summary: Submit a prompt
+      requestBody:
         required: true
         content:
           application/json:
@@ -34,17 +34,17 @@ paths:
                             type: string
                           content:
                             type: string
-            responses:
-                "200":
-                    description: OK
-                "401":
-                    description: Unsuccessful authentication
-            content:
-                application/json:
-                schema:
-                    type: object
-                    properties:
-                    threats:
-                        type: array
-                        items:
-                        type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  threats:
+                    type: array
+                    items:
+                      type: string
+        "401":
+          description: Unsuccessful authentication
