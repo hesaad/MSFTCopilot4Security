@@ -1,50 +1,40 @@
 openapi: 3.0.0
 
 info:
-  title: CyberFuse
-  description: CyberFuse AI SecLM Skillset to prompt and provide insights and context analysis across the CyberFuse connected data sources.
-  version: 1.0.0
+    title: CyberFuse
+    description: CyberFuse AI SecLM Skillset to prompt and provide insights and context analysis across the CyberFuse connected data sources.
+    version: 1.0.0
 
 servers:
-  - url: http://20.55.88.26:8001/
+    - url: http://20.55.88.26:8001/
 
 paths:
-  /chat/stream:
-    post:
-      operationId: CyberFuseAIPrompt
-      summary: Submit a prompt
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                input:
-                  type: object
-                  properties:
-                    user_id:
+    /chat/stream:
+        post:
+            operationId: CyberFuseAIPrompt
+            summary: Submit a prompt
+            parameters:
+                - in: query
+                  name: "content"
+                  schema:
                       type: string
-                    messages:
-                      type: array
-                      items:
-                        type: object
-                        properties:
-                          type:
-                            type: string
-                          content:
-                            type: string
-      responses:
-        "200":
-          description: OK
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  threats:
-                    type: array
-                    items:
+                  required: true
+                  description: "The Prompt content"
+                - in: query
+                  name: "type"
+                  schema:
                       type: string
-        "401":
-          description: Unsuccessful authentication
+                  default: "human"
+                  description: "Please do not change, the value should be human"
+                - in: query
+                  name: "user_id"
+                  schema:
+                      type: string
+                  default: 221098
+                  description: "Please do not change, the value should be 221098"
+            responses:
+                "200":
+                    description: OK
+                "401":
+                    description: Unsuccessful authentication
+                
