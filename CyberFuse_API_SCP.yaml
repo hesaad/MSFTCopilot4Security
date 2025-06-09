@@ -20,6 +20,12 @@ paths:
                       type: string
                   required: true
                   description: The Prompt content
+                - in: query
+                  name: type
+                  schema:
+                      type: string
+                  default: human
+                  description: Please do not change, the value should be human
 
             responses:
                 "200":
