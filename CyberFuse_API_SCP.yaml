@@ -13,25 +13,38 @@ paths:
         post:
             operationId: CyberFuseAIPrompt
             summary: Submit a prompt
-            parameters:
-                - in: query
-                  name: "content"
-                  schema:
+     requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                input:
+                  type: object
+                  properties:
+                    user_id:
                       type: string
-                  required: true
-                  description: "The Prompt content"
-                - in: query
-                  name: "type"
-                  schema:
-                      type: string
-                  default: "human"
-                  description: "Please do not change, the value should be human"
-                - in: query
-                  name: "user_id"
-                  schema:
-                      type: string
-                  default: 221098
-                  description: "Please do not change, the value should be 221098"
+                    messages:
+                      type: array
+                      items:
+                        type: object
+                        properties:
+                          type:
+                            type: string
+                          content:
+                            type: string
             responses:
                 "200":
                     description: OK
+                "401":
+                    description: Unsuccessful authentication
+            content:
+                application/json:
+                schema:
+                    type: object
+                    properties:
+                    threats:
+                        type: array
+                        items:
+                        type: string
