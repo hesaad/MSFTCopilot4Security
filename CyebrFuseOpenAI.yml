@@ -1,0 +1,40 @@
+openapi: 3.0.1
+info:
+  title: CyberFuse
+  description: CyberFuse AI SecLM Skillset to prompt and provide insights and context analysis across the CyberFuse connected data sources.
+  version: 1.0.0
+servers:
+  - url: https://prod-06.northcentralus.logic.azure.com:443/workflows/f64f63e2c5c3405085ba279d743687ac/triggers/manual/paths/
+    description: Azure Logic App HTTP trigger endpoint
+paths:
+  /invoke?api-version=2016-10-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=lWsXDLDpvEHoDvDy6zXMAg1U7Hgz4txWhbz6xcczoRQ:
+    post:
+      operationId: CyberFuseAIPrompt
+      summary: Trigger Logic app playbook to send input prompt to Cyberfuse via Security Copilot prompt
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                content:
+                  type: string
+                  description: The Prompt content to Cyberfuse
+                cyberfuseserver:
+                  type: string
+                  description: Cyberfuse server URL with port
+                cyberfuseuserid:
+                  type: string
+                  description: Cyberfuse session User ID
+              required:
+                - content
+                - cyberfuseserver
+                - cyberfuseuserid
+      responses:
+        '202':
+          description: Actions have been executed and the prompt sent successfully to Cyberfuse
+        '400':
+          description: Bad request
+        '500':
+          description: Server error
